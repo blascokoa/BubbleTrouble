@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+    background-color: lightgray;
+}
+
+@font-face {
+    font-family: "Bubble Bobble";
+    src: url("../fonts/BubbleBobble.ttf"),
+    url("../fonts/BubbleBobble.otf")
+}
+
+#my-canvas {
+    background-color: darkgray;
+}
+
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+}
+
+#start-btn{
+    background-color: #2E4080;
+    position: absolute;
+    top: 500px;
+    margin:0;
+    padding: 0;
+}
+
+#score-text{
+    position: absolute;
+    top: 330px;
+    left: 530px;
+}
+
+#restart-btn {
+    background-color: transparent;
+    color: white;
+    position: absolute;
+    top: 400px;
+    left: 470px;
+    font-size: 60px;
+    border: 10px solid;
+    text-shadow: #474747 3px 5px 2px, 21px 2px 4px rgba(206,89,55,0);
+}
+
+#restart-btn:hover{
+    transform: scale(1.2);
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+#splash-screen {
+    display: flex;
+}
+
+
+#my-canvas,
+#gameover-screen{
+    display:none;
+}
+
+.custom-font {
+    font-family: "Bubble Bobble", "PT Sans", "Calibri", "Tahoma", "sans-serif";
+}
+
+
+
+
