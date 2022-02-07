@@ -1,6 +1,7 @@
 // * GLOBAL VARIABLES
 let splashScreen = document.querySelector("#splash-screen");
-let canvas = document.querySelector("#my-canvas");
+let gameScreen = document.querySelector("#game-screen");
+let canvas = document.querySelector( "#my-canvas")
 let gameOverScreen = document.querySelector("#gameover-screen");
 
 let ctx = canvas.getContext("2d");
@@ -10,6 +11,7 @@ let newGame;
 const startGame = () => {
     // desaparecer el splash-screen y aparecer el canvas
     splashScreen.style.display = "none";
+    gameScreen.style.display = "flex";
     canvas.style.display = "flex";
     // ejecutar mi juego
     newGame = new Game();

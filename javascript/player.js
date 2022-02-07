@@ -9,7 +9,7 @@ class Player {
         this.height = 16 * this.sizeMultiplier;
 
         this.movSpeed = 5;
-        this.jumpPow = 105;
+        this.jumpPow = 150;
         this.gravityPow = 2;
 
         this.img = new Image();
@@ -21,7 +21,11 @@ class Player {
         this.image_walk_right = "./images/player_walk_right.png"
         this.img.src =  this.image_right
 
+        this.failling = false;
+
         this.orientation = "right";
+
+        this.lives = 3;
     }
 
     // Methods from the player
@@ -33,46 +37,48 @@ class Player {
 
     // Handling Movement
     moveLeft = () =>{
-        this.x = this.x - this.movSpeed;
-        if (this.img.src !== this.image_left){
-            if (this.x % 3 === 0){
+        if (this.x > 51){
+            this.x = this.x - this.movSpeed;
+            if (this.getImageUsed(this.img.src) !== this.getImageUsed(this.image_left)){
                 this.img.src = this.image_left
                 this.orientation = "left"
-            }else{
-                this.img.src = this.image_walk_left
-                this.orientation = "left"
             }
-
+            if(this.orientation === "left"){
+                if (this.x % 3 === 0){
+                    this.img.src = this.image_left
+                }else{
+                    this.img.src = this.image_walk_left
+                }
+            }
         }
+
 
     }
     moveRight = () =>{
-        this.x = this.x + this.movSpeed;
-        if (this.img.src !== this.image_right){
-            if (this.x % 3 === 0){
+        if (this.x < (747 - this.width)){
+            this.x = this.x + this.movSpeed;
+            if (this.getImageUsed(this.img.src) !== this.getImageUsed(this.image_right)){
                 this.img.src = this.image_right
                 this.orientation = "right"
-            }else{
-                this.img.src = this.image_walk_right
-                this.orientation = "right"
+            }
+            if (this.orientation === "right"){
+                if (this.x % 3 === 0){
+                    this.img.src = this.image_right
+                }else{
+                    this.img.src = this.image_walk_right
+                }
             }
         }
 
+
     }
     jump = () => {
-        this.y = this.y - this.jumpPow;
-        if (this.img.src === this.image_right){
-            this.img.src = this.image_jump_right
-            this.orientation = "right"
-        }else if (this.img.src === this.image_left){
-            this.img.src = this.image_jump_left
-            this.orientation = "left"
-        }
-    }
-    gravity = () => {
-
-        if (this.y < (canvas.height - (this.height + 28))){
-            this.y = this.y + this.gravityPow;
+        if (!this.failling){
+            if ((this.y - this.jumpPow) < 27){
+                this.y = 27
+            }else{
+                this.y = this.y - this.jumpPow;
+            }
             if (this.getImageUsed(this.img.src) === this.getImageUsed(this.image_right)){
                 this.img.src = this.image_jump_right
                 this.orientation = "right"
@@ -80,15 +86,38 @@ class Player {
                 this.img.src = this.image_jump_left
                 this.orientation = "left"
             }
+        }
 
-        }else {
-            if (this.getImageUsed(this.img.src) === this.getImageUsed(this.image_jump_right)){
-                this.img.src = this.image_right
-                this.orientation = "right"
-            }else if (this.getImageUsed(this.img.src) === this.getImageUsed(this.image_jump_left)){
-                this.img.src = this.image_left
-                this.orientation = "left"
+    }
+    gravity = () => {
+        /* floor data:
+        * -------------------
+        * |                 |
+        * |    ----------   |  201
+        * |                 |
+        * |    ----------   |  325
+        * |                 |
+        * |    ----------   |  449 / 404
+        * |                 |
+        * -------------------
+        *   176^     623^
+        * */
+        let onHole = (this.x < 176 - (this.width/2) || this.x > (623 - this.width/2))
+        let onFloorZero = (this.y < (canvas.height - (this.height + 28)))// && this.y > 410) // works
+        let onFloorOne =  (this.y < 406 && this.y > 400)
+        let onFloorTwo = (this.y < 280 && this.y > 275)
+        let onFloorTree = (this.y < 156 && this.y > 150)
+
+        if ((!onFloorOne || onHole ) && (onFloorZero) && (!onFloorTwo || onHole) && (!onFloorTree || onHole)){
+            this.failling = true;
+            this.y = this.y + this.gravityPow;
+            if (this.getImageUsed(this.img.src) === this.getImageUsed(this.image_right) || this.getImageUsed(this.img.src) === this.getImageUsed(this.image_walk_right)){
+                this.img.src = this.image_jump_right
+            }else if (this.getImageUsed(this.img.src) === this.getImageUsed(this.image_left) || this.getImageUsed(this.img.src) === this.getImageUsed(this.image_walk_left)){
+                this.img.src = this.image_jump_left
             }
+        } else{
+            this.failling = false;
         }
     }
 

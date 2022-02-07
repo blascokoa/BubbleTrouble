@@ -12,7 +12,7 @@ class Attack {
         this.initial_y = this.y
 
         this.attack_lenght = 100
-        this.active = true
+        this.isActive = true
 
         this.img = new Image();
         this.img.src = "./images/attack_ball.png"
@@ -37,18 +37,27 @@ class Attack {
     }
 
     moveAttack = () => {
+        let max_length
         if (this.orientation === "left"){
-            if(this.x > (this.initial_x - this.attack_lenght))
+            max_length = (this.initial_x - this.attack_lenght)
+            if (max_length < 51){
+                max_length = 51
+            }
+            if(this.x > max_length)
                 this.x = this.x - 1
             else{
-                this.active = false
+                this.isActive = false
                 this.y = this.y - 1
             }
         }else {
-            if(this.x < (this.initial_x + this.attack_lenght))
+            max_length = (this.initial_x + this.attack_lenght)
+            if (max_length > 700){
+                max_length = 700
+            }
+            if(this.x < max_length)
                 this.x = this.x + 1
             else{
-                this.active = false
+                this.isActive = false
                 this.y = this.y - 1
             }
         }
