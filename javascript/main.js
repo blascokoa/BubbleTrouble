@@ -20,6 +20,7 @@ const startGame = () => {
 let startButtonDOM = document.querySelector("#start-btn");
 startButtonDOM.addEventListener("click", startGame);
 
+
 document.addEventListener("keydown", (e) => {
     let keyPressed = e.code;
     if (canvas.style.display === "flex") {
@@ -38,5 +39,4 @@ document.addEventListener("keydown", (e) => {
                 break;
         }
     }
-
 });
