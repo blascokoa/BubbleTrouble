@@ -14,7 +14,6 @@ body {
 }
 
 
-
 .container {
     display: flex;
     flex-direction: column;
@@ -23,15 +22,15 @@ body {
     margin: 50px;
 }
 
-#start-btn{
+#start-btn {
     background-color: #2E4080;
     position: absolute;
     top: 500px;
-    margin:0;
+    margin: 0;
     padding: 0;
 }
 
-#score-text{
+#score-text {
     position: absolute;
     top: 330px;
     left: 530px;
@@ -46,17 +45,17 @@ body {
     left: 470px;
     font-size: 60px;
     border: 10px solid;
-    text-shadow: #474747 3px 5px 2px, 21px 2px 4px rgba(206,89,55,0);
+    text-shadow: #474747 3px 5px 2px, 21px 2px 4px rgba(206, 89, 55, 0);
 }
 
-#restart-btn:hover{
+#restart-btn:hover {
     transform: scale(1.2);
     transition-duration: 0.5s;
     cursor: pointer;
 }
 
-#game-screen{
-    position:relative
+#game-screen {
+    position: relative
 }
 
 #splash-screen {
@@ -65,8 +64,8 @@ body {
 
 
 #game-screen,
-#gameover-screen{
-    display:none;
+#gameover-screen {
+    display: none;
 }
 
 #lives {
@@ -75,14 +74,18 @@ body {
     left: 70px;
 }
 
-.lives-prop{
-    margin:3px;
+.lives-prop {
+    margin: 3px;
 }
 
-#game-score{
-    position:absolute;
+#game-score {
+    position: absolute;
     top: 50px;
     right: 70px;
+    color: white;
+}
+
+#level-text {
     color: white;
 }
 

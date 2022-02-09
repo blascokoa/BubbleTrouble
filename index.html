@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Bubble Trouble</title>
-    <link rel="stylesheet" href="./styles/styles.css" />
+    <link rel="stylesheet" href="./styles/styles.css"/>
 </head>
 <body>
 <div class="container">
     <!-- SPLASH SCREEN -->
     <div id="splash-screen" class="container">
-        <img src="./images/start-main.jpg" width="1000" alt="logo" />
+        <img src="./images/start-main.jpg" width="1000" alt="logo"/>
         <button id="start-btn">
             <img src="./images/start-button.png" alt="play button"/></button>
     </div>
@@ -23,16 +23,17 @@
             <img id="live1" class="lives-prop" src="./images/lives.png" alt="lives">
             <img id="live2" class="lives-prop" src="./images/lives.png" alt="lives">
             <img id="live3" class="lives-prop" src="./images/lives.png" alt="lives">
+            <div id="level-text" class="custom-font">Level: <span>1</span></div>
         </div>
         <div id="game-score" class="custom-font">
-            Score: <span>0</span>
+            Score: <span>10</span>
         </div>
     </div>
 
     <!-- GAME OVER SCREEN -->
     <div id="gameover-screen" class="container">
-        <img src="./images/gameover.png" width="640" alt="gameover image" />
-        <h2 id="score-text" class="custom-font">Your Score: <span>0</span></h2>
+        <img src="./images/gameover.png" width="640" alt="gameover image"/>
+        <h2 id="score-text" class="custom-font">Your Score: 0</h2>
         <button id="restart-btn" class="custom-font">Play Again!</button>
     </div>
 </div>
