@@ -100,9 +100,9 @@ class Game {
           this.player.y + 10 < enemy.y + enemy.height &&
           this.player.height + this.player.y - 10 > enemy.y
         ) {
-          this.player.lives--;
           enemy.isDed = true;
           enemy.img.src = "./images/enemy_player_ded.png";
+          this.player.lives--;
           this.player.play_collission();
           if (this.player.lives <= 0) {
             this.gameIsActive = false;
