@@ -55,9 +55,9 @@ class Game {
   };
 
   spawnEnemy = () => {
-    if ( this.enemyArr.length <= this.maxEnemies ) {
-      if ( this.counter % this.spawnSpeed === 0 ) {
-        if ( this.level % 5 !== 0 ) {
+    if (this.enemyArr.length <= this.maxEnemies) {
+      if (this.counter % this.spawnSpeed === 0) {
+        if (this.level % 5 !== 0) {
           this.enemyArr.push(new Enemy());
         } else {
           this.enemyArr.push(new Enemy());
@@ -68,15 +68,15 @@ class Game {
   };
 
   increaseLevel = () => {
-    if ( this.score % 500 === 0 && this.score !== 0 ) {
+    if (this.score % 500 === 0 && this.score !== 0) {
       for (let i = this.level; i > 0; i--) {
-        if ( i === this.level ) {
+        if (i === this.level) {
           this.spawnSpeed = 500 / 2 + 100;
         } else {
           this.spawnSpeed = Math.floor(this.spawnSpeed / 2 + 100);
-          if ( this.spawnSpeed <= 200 ) {
+          if (this.spawnSpeed <= 200) {
             this.spawnSpeed = this.spawnSpeed - this.level * 2;
-            if ( this.spawnSpeed < 50 ) {
+            if (this.spawnSpeed < 50) {
               this.spawnSpeed = 50;
             }
           }
@@ -84,7 +84,7 @@ class Game {
       }
       this.oldLevel = this.level;
       this.level = this.score / 500 + 1;
-      if ( this.oldLevel !== this.level ) {
+      if (this.oldLevel !== this.level) {
         this.playLevelUpMusic();
       }
     }
@@ -92,16 +92,16 @@ class Game {
 
   collisionWithPlayer = () => {
     this.enemyArr.forEach((enemy, enemyIndex) => {
-      if ( !enemy.isDed ) {
+      if (!enemy.isDed) {
         if (
-            this.player.x + 10 < enemy.x + enemy.width &&
-            this.player.x - 10 + this.player.width > enemy.x &&
-            this.player.y + 10 < enemy.y + enemy.height &&
-            this.player.height + this.player.y - 10 > enemy.y
+          this.player.x + 10 < enemy.x + enemy.width &&
+          this.player.x - 10 + this.player.width > enemy.x &&
+          this.player.y + 10 < enemy.y + enemy.height &&
+          this.player.height + this.player.y - 10 > enemy.y
         ) {
-          if ( this.player.lives === 0 ) {
+          if (this.player.lives === 0) {
             //this.gameIsActive = false;
-          } else if ( this.player.lives > 0 ) {
+          } else if (this.player.lives > 0) {
             this.player.lives--;
             switch (this.player.lives) {
               case 1:
@@ -125,18 +125,18 @@ class Game {
 
   collisionWithAttack = () => {
     this.attacksArr.forEach((attack, attackIndex) => {
-      if ( attack.isActive ) {
+      if (attack.isActive) {
         this.enemyArr.forEach((enemy, enemyIndex) => {
           if (
-              attack.x + 25 < enemy.x + enemy.width &&
-              attack.x - 5 + attack.width > enemy.x &&
-              attack.y + 5 < enemy.y + enemy.height &&
-              attack.height + attack.y - 5 > enemy.y
+            attack.x + 25 < enemy.x + enemy.width &&
+            attack.x - 5 + attack.width > enemy.x &&
+            attack.y + 5 < enemy.y + enemy.height &&
+            attack.height + attack.y - 5 > enemy.y
           ) {
             this.score += this.pointsPerKill;
             this.enemyArr.splice(enemyIndex, 1);
             attack.attack_length = 0;
-            attack.img.src = "../images/enemy-ded.png";
+            attack.img.src = "./images/enemy-ded.png";
             attack.width = enemy.width;
             attack.height = enemy.height;
             attack.isDed = true;
@@ -149,7 +149,7 @@ class Game {
 
   removeDedEnemies = () => {
     this.enemyArr.forEach((enemy, enemyIndex) => {
-      if ( enemy.isDed && enemy.totallyDed ) {
+      if (enemy.isDed && enemy.totallyDed) {
         this.enemyArr.splice(enemyIndex, 1);
       }
     });
@@ -170,7 +170,7 @@ class Game {
     this.attacksArr.forEach((attack) => {
       attack.moveAttack();
       // remove attacks from the array
-      if ( attack.y < 0 - attack.height / 2 ) {
+      if (attack.y < 0 - attack.height / 2) {
         this.attacksArr.shift();
       }
     });
@@ -178,7 +178,6 @@ class Game {
     this.enemyArr.forEach((enemy) => {
       enemy.moveEnemy(this.player);
     });
-
 
     // draw elements
     this.drawBackground();
@@ -197,7 +196,7 @@ class Game {
     this.collisionWithAttack();
 
     // loop game
-    if ( this.gameIsActive ) {
+    if (this.gameIsActive) {
       requestAnimationFrame(this.gameLoop);
       this.counter++;
     }
