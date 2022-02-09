@@ -108,6 +108,13 @@ body {
     "sans-serif";
 }
 
+#instructions {
+    position: relative;
+    color: white;
+    top: -462px;
+    left: 325px;
+}
+
 
 
 
