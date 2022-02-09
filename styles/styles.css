@@ -68,6 +68,17 @@ body {
     display: none;
 }
 
+#gameover-screen {
+    position: relative;
+}
+
+#gameover-details {
+    position: absolute;
+    top: -93px;
+    right: -19px;
+    padding: 406px;
+}
+
 #lives {
     position: absolute;
     top: 50px;

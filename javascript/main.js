@@ -6,6 +6,7 @@ const gameOverScreen = document.querySelector("#gameover-screen");
 
 let scoreText = document.querySelector("#game-score span");
 let gameOverScore = document.querySelector("#score-text span");
+
 let levelText = document.querySelector("#level-text span");
 
 const live2 = document.querySelector("#live2");
@@ -20,13 +21,17 @@ audio.volume = 0.01;
 
 // * STATE MANAGEMENT FUNCTIONS
 const startGame = () => {
+  audio.currentTime = 0;
   audio.play().then(() => {
     return true;
   });
   audio.loop = true;
   // desaparecer el splash-screen y aparecer el canvas
+  gameOverScreen.style.display = "none";
   splashScreen.style.display = "none";
   gameScreen.style.display = "flex";
+  live2.style.display = "inline";
+  live3.style.display = "inline";
   canvas.style.display = "flex";
   // ejecutar mi juego
   newGame = new Game();

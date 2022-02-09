@@ -11,8 +11,8 @@ class Game {
     this.counter = 0;
     this.score = 0;
     this.oldLevel = 1;
-    this.maxEnemies = 6;
-    this.pointsPerKill = 500;
+    this.maxEnemies = 5;
+    this.pointsPerKill = 100;
 
     this.newLevelMusic = new Audio();
     this.newLevelMusic.src = "./music/BubbleLevelUp.wav";
@@ -47,7 +47,8 @@ class Game {
     // Todo Solve the score text issue, its not printing and not showing the full text despite the tag
     //   is correct and not used in any other place
     scoreText.innerText = this.score.toString();
-    levelText.innerText = `${this.level} - SpawnSpeed: ${this.spawnSpeed}`;
+    gameOverScore.innerText = this.score.toString();
+    levelText.innerText = `${this.level}`;
   };
 
   spawnAttack = () => {
@@ -99,10 +100,17 @@ class Game {
           this.player.y + 10 < enemy.y + enemy.height &&
           this.player.height + this.player.y - 10 > enemy.y
         ) {
-          if (this.player.lives === 0) {
-            //this.gameIsActive = false;
+          this.player.lives--;
+          enemy.isDed = true;
+          enemy.img.src = "./images/enemy_player_ded.png";
+          this.player.play_collission();
+          if (this.player.lives <= 0) {
+            this.gameIsActive = false;
+            canvas.style.display = "none";
+            gameScreen.style.display = "none";
+            gameOverScreen.style.display = "flex";
+            audio.pause();
           } else if (this.player.lives > 0) {
-            this.player.lives--;
             switch (this.player.lives) {
               case 1:
                 live2.style.display = "none";
@@ -113,11 +121,7 @@ class Game {
                 break;
             }
           }
-          // Remove the enemy that hitted the player
-          // this.enemyArr.splice(enemyIndex, 1);
-          enemy.isDed = true;
-          enemy.img.src = "./images/enemy_player_ded.png";
-          this.player.play_collission();
+          // Remove the enemy that hit the player
         }
       }
     });
