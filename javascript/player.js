@@ -34,7 +34,7 @@ class Player {
   }
 
   // Methods from the player
-  play_collission = () => {
+  play_collision = () => {
     /*
      * Music when enemy hits the player
      * */

@@ -159,7 +159,7 @@ class Game {
           enemy.isDed = true;
           enemy.img.src = "./images/enemy_player_ded.png";
           this.player.lives--;
-          this.player.play_collission();
+          this.player.play_collision();
           this.livesHandler();
         }
       }
