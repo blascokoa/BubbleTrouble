@@ -3,37 +3,37 @@ const splashScreen = document.querySelector("#splash-screen");
 const gameScreen = document.querySelector("#game-screen");
 const canvas = document.querySelector("#my-canvas");
 const gameOverScreen = document.querySelector("#gameover-screen");
-
-let scoreText = document.querySelector("#game-score span");
-let gameOverScore = document.querySelector("#score-text span");
-
-let levelText = document.querySelector("#level-text span");
-
+const scoreText = document.querySelector("#game-score span");
+const gameOverScore = document.querySelector("#score-text span");
+const levelText = document.querySelector("#level-text span");
 const live2 = document.querySelector("#live2");
 const live3 = document.querySelector("#live3");
 
 const ctx = canvas.getContext("2d");
+
 let newGame;
 
-let audio = new Audio();
+const audio = new Audio();
 audio.src = "./music/BubbleBobbleMusic.mp3";
 audio.volume = 0.01;
 
 // * STATE MANAGEMENT FUNCTIONS
 const startGame = () => {
+  // start game music
   audio.currentTime = 0;
   audio.play().then(() => {
     return true;
   });
   audio.loop = true;
-  // desaparecer el splash-screen y aparecer el canvas
+
+  // remove splash-screen and draw canvas
   gameOverScreen.style.display = "none";
   splashScreen.style.display = "none";
   gameScreen.style.display = "flex";
   live2.style.display = "inline";
   live3.style.display = "inline";
   canvas.style.display = "flex";
-  // ejecutar mi juego
+  // Start the game
   newGame = new Game();
   newGame.gameLoop();
 };
@@ -46,21 +46,24 @@ const reStartButtonDOM = document.querySelector("#restart-btn");
 reStartButtonDOM.addEventListener("click", startGame);
 
 document.addEventListener("keydown", (e) => {
-  const keyPressed = e.code;
-  if (canvas.style.display === "flex") {
+  if ( canvas.style.display === "flex" ) {
     switch (true) {
-      case keyPressed === "ArrowLeft" || keyPressed === "KeyA":
+
+      case e.code === "ArrowLeft" || e.code === "KeyA":
         newGame.player.moveLeft();
         break;
-      case keyPressed === "ArrowUp" ||
-        keyPressed === "KeyW" ||
-        keyPressed === "Space":
-        newGame.player.jump();
+
+      case e.code === "ArrowUp" ||
+      e.code === "KeyW" ||
+      e.code === "Space":
+        if ( !newGame.player.falling ) newGame.player.jump();
         break;
-      case keyPressed === "KeyD" || keyPressed === "ArrowRight":
+
+      case e.code === "KeyD" || e.code === "ArrowRight":
         newGame.player.moveRight();
         break;
-      case keyPressed === "ControlLeft":
+
+      case e.code === "ControlLeft":
         newGame.spawnAttack();
         break;
     }

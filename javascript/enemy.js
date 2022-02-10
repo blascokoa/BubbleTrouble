@@ -21,40 +21,66 @@ class Enemy {
   }
 
   drawEnemy = () => {
+    /*
+     * Draw the player when game request to spawn it, and change the image in case its dead.
+     * */
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    if (this.isDed) {
+    if ( this.isDed ) {
       this.drawDedEnemy();
     }
   };
 
   moveEnemy = (player) => {
-    if (!this.isDed) {
-      if (this.x < player.x) {
-        if (this.x % 10 < 5) {
-          this.img.src = this.image_close_right;
-        } else {
-          this.img.src = this.image_open_right;
-        }
+    /*
+    * Enemy will compare the position of the player and its current position for decide in which
+    * direction it must move, enemy will only move if it's not dead.
+    * */
+
+    if ( !this.isDed ) {
+      // Enemy move in the X axis
+      if ( this.x < player.x ) {
+        this.imageMovingEnemy("right")
         this.x = this.x + this.enemySpeed;
-      } else if (this.x > player.x) {
-        if (this.x % 10 >= 5) {
-          this.img.src = this.image_close_left;
-        } else {
-          this.img.src = this.image_open_left;
-        }
+      } else if ( this.x > player.x ) {
+        this.imageMovingEnemy("left")
         this.x = this.x - this.enemySpeed;
       }
-
-      if (this.y < player.y) {
+      // Enemy move in the Y axis
+      if ( this.y < player.y ) {
         this.y = this.y + this.enemySpeed;
-      } else if (this.y > player.y) {
+      } else if ( this.y > player.y ) {
         this.y = this.y - this.enemySpeed;
       }
     }
   };
+
+  imageMovingEnemy = (direction) => {
+    /*
+    * Depending on the orientation and the module calculated, the system will choose one
+    * image or another, bringing to the enemy a smooth animation effect.
+    * */
+    if ( direction === "left" ) {
+      if ( this.x % 10 >= 5 ) {
+        this.img.src = this.image_close_left;
+      } else {
+        this.img.src = this.image_open_left;
+      }
+    } else if ( direction === "right" ) {
+      if ( this.x % 10 < 5 ) {
+        this.img.src = this.image_close_right;
+      } else {
+        this.img.src = this.image_open_right;
+      }
+    }
+  }
+
   drawDedEnemy = () => {
+    /*
+    * Check the time that the enemy is already dead, if it surpasses 20,
+    * change the state of the enemy for remove the pic from the screen.
+    * */
     this.timeDed++;
-    if (this.timeDed > 20) {
+    if ( this.timeDed > 20 ) {
       this.totallyDed = true;
     }
   };
