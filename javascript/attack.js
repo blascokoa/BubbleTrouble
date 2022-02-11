@@ -10,6 +10,7 @@ class Attack {
     this.attack_length = 100;
     this.isActive = true;
     this.isDed = false;
+    this.lastAttack = 15;
 
     this.img = new Image();
     this.img.src = "./images/attack_ball.png";
@@ -66,6 +67,9 @@ class Attack {
      * this.isActive is what the code use for check if the attack can hit an enemy or not, its active while
      * the bubble is moving at X axis and inactive when moving at Y axis.
      * */
+    if (this.lastAttack > 0) {
+      this.lastAttack--;
+    }
 
     let max_length;
     if (this.orientation === "left") {
