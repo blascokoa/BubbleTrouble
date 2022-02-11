@@ -116,9 +116,7 @@ class Game {
           this.spawnSpeed = Math.floor(this.spawnSpeed / 2 + 100);
           if (this.spawnSpeed <= 200) {
             this.spawnSpeed = this.spawnSpeed - this.level * 2;
-            if (this.spawnSpeed < 50) {
-              this.spawnSpeed = 50;
-            }
+            if (this.spawnSpeed < 50) this.spawnSpeed = 50;
           }
         }
       }
@@ -227,9 +225,7 @@ class Game {
      * Check if the enemy is dead in both conditions and remove it from the array.
      * */
     this.enemyArr.forEach((enemy, enemyIndex) => {
-      if (enemy.isDed && enemy.totallyDed) {
-        this.enemyArr.splice(enemyIndex, 1);
-      }
+      if (enemy.isDed && enemy.totallyDed) this.enemyArr.splice(enemyIndex, 1);
     });
   };
 
@@ -239,9 +235,7 @@ class Game {
      * */
     attack.moveAttack();
     // remove attacks from the array
-    if (attack.y < 0 - attack.height / 2) {
-      this.attacksArr.splice(index, 1);
-    }
+    if (attack.y < 0 - attack.height / 2) this.attacksArr.splice(index, 1);
   };
 
   // check if player/enemy on wall:
@@ -258,6 +252,7 @@ class Game {
       this.handleAttack(attack, index)
     );
     this.enemyArr.forEach((enemy) => enemy.moveEnemy(this.player));
+    this.player.moveJumping();
 
     // draw elements
     this.drawBackground();
