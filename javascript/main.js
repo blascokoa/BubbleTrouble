@@ -46,17 +46,18 @@ const reStartButtonDOM = document.querySelector("#restart-btn");
 reStartButtonDOM.addEventListener("click", startGame);
 
 document.addEventListener("keydown", (e) => {
-  if ( canvas.style.display === "flex" ) {
+  if (canvas.style.display === "flex") {
     switch (true) {
-
       case e.code === "ArrowLeft" || e.code === "KeyA":
         newGame.player.moveLeft();
         break;
 
-      case e.code === "ArrowUp" ||
-      e.code === "KeyW" ||
-      e.code === "Space":
-        if ( !newGame.player.falling ) newGame.player.jump();
+      case e.code === "ArrowUp" || e.code === "KeyW" || e.code === "Space":
+        if (!newGame.player.falling && !newGame.player.isJumping) {
+          newGame.player.isJumping = true;
+          newGame.player.initialY = newGame.player.y;
+          newGame.player.jump();
+        }
         break;
 
       case e.code === "KeyD" || e.code === "ArrowRight":

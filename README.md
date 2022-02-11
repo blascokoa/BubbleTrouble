@@ -52,6 +52,7 @@ the enemies will appear non-stop till your player die.
     - moveRight
     - drawJump
     - jump
+    - moveJumping
     - gravity
     - getImageUsed
     - play_collision

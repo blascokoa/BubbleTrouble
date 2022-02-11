@@ -11,6 +11,8 @@ class Player {
     this.movSpeed = 9;
     this.jumpPow = 150;
     this.gravityPow = 3;
+    this.isJumping = false;
+    this.finalY = 0;
 
     this.img = new Image();
     this.image_right = "./images/player_mov_right.png";
@@ -67,13 +69,13 @@ class Player {
      * and depending on the used one, it will use one orientation or another.
      * */
     if (
-      this.getImageUsed(this.img.src) === this.getImageUsed(this.image_right)
+        this.getImageUsed(this.img.src) === this.getImageUsed(this.image_right)
     ) {
       // Jumping at right
       this.img.src = this.image_jump_right;
       this.orientation = "right";
     } else if (
-      this.getImageUsed(this.img.src) === this.getImageUsed(this.image_left)
+        this.getImageUsed(this.img.src) === this.getImageUsed(this.image_left)
     ) {
       // Jumping at left
       this.img.src = this.image_jump_left;
@@ -88,16 +90,16 @@ class Player {
      * that direction (51 while you move to left).
      * It will also change the image for bring an animation as if the player is "walking"
      * */
-    if (this.x > 51) {
+    if ( this.x > 51 ) {
       this.x = this.x - this.movSpeed;
       if (
-        this.getImageUsed(this.img.src) !== this.getImageUsed(this.image_left)
+          this.getImageUsed(this.img.src) !== this.getImageUsed(this.image_left)
       ) {
         this.img.src = this.image_left;
         this.orientation = "left";
       }
-      if (this.orientation === "left") {
-        if (this.x % 5 <= 5 / 2) {
+      if ( this.orientation === "left" ) {
+        if ( this.x % 5 <= 5 / 2 ) {
           this.img.src = this.image_left;
         } else {
           this.img.src = this.image_walk_left;
@@ -112,16 +114,16 @@ class Player {
      * that direction (747 while you move to right).
      * It will also change the image for bring an animation as if the player is "walking"
      * */
-    if (this.x < 747 - this.width) {
+    if ( this.x < 747 - this.width ) {
       this.x = this.x + this.movSpeed;
       if (
-        this.getImageUsed(this.img.src) !== this.getImageUsed(this.image_right)
+          this.getImageUsed(this.img.src) !== this.getImageUsed(this.image_right)
       ) {
         this.img.src = this.image_right;
         this.orientation = "right";
       }
-      if (this.orientation === "right") {
-        if (this.x % 5 <= 5 / 2) {
+      if ( this.orientation === "right" ) {
+        if ( this.x % 5 <= 5 / 2 ) {
           this.img.src = this.image_right;
         } else {
           this.img.src = this.image_walk_right;
@@ -136,12 +138,26 @@ class Player {
      * considering the ceiling at 27px on Y axis.
      * */
     this.playSound();
-    if (this.y - this.jumpPow < 27) {
-      this.y = 27;
+    if ( this.y - this.jumpPow < 27 ) {
+      this.finalY = 27;
     } else {
-      this.y = this.y - this.jumpPow;
+      this.finalY = this.y - this.jumpPow;
     }
     this.drawJump();
+  };
+
+  moveJumping = () => {
+    /*
+    * Function for draw a gradual jump movement, decreasing the y
+    * coordinate based on the gravity speed
+    * */
+    if ( this.isJumping ) {
+      if ( this.y >= this.finalY ) {
+        this.y = this.y - this.gravityPow * 3;
+      } else {
+        this.isJumping = false;
+      }
+    }
   };
 
   gravity = () => {
@@ -168,24 +184,29 @@ class Player {
     let onFloorTree = this.y < 156 && this.y > 150;
 
     if (
-      onFloorZero &&
-      (!onFloorOne || onHole) &&
-      (!onFloorTwo || onHole) &&
-      (!onFloorTree || onHole)
+        onFloorZero &&
+        (!onFloorOne || onHole) &&
+        (!onFloorTwo || onHole) &&
+        (!onFloorTree || onHole)
     ) {
       this.falling = true;
-      this.y = this.y + this.gravityPow;
+      /*
+      * Only will apply the gravity effect while the player is not jumping
+      * */
+      if ( !this.isJumping ) {
+        this.y = this.y + this.gravityPow;
+      }
       if (
-        this.getImageUsed(this.img.src) ===
+          this.getImageUsed(this.img.src) ===
           this.getImageUsed(this.image_right) ||
-        this.getImageUsed(this.img.src) ===
+          this.getImageUsed(this.img.src) ===
           this.getImageUsed(this.image_walk_right)
       ) {
         this.img.src = this.image_jump_right;
       } else if (
-        this.getImageUsed(this.img.src) ===
+          this.getImageUsed(this.img.src) ===
           this.getImageUsed(this.image_left) ||
-        this.getImageUsed(this.img.src) ===
+          this.getImageUsed(this.img.src) ===
           this.getImageUsed(this.image_walk_left)
       ) {
         this.img.src = this.image_jump_left;
